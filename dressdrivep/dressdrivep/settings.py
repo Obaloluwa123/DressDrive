@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-+v(le((8mf7-=*-fp-_7*28)_vwd^ys31m1kfu)5pg4=6!yun&'
-
+TEMPLATE_DIR = BASE_DIR / 'templates'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'weatherdress',
+    'rest_framework',
+    'materializecssform',
+
 ]
 
 MIDDLEWARE = [
@@ -115,7 +119,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATICFILES_DIRS =  [BASE_DIR / 'static', ]
+STATICFILES_DIRS =  [BASE_DIR / 'weatherdress' /'static', ]
 
 STATIC_URL = '/static/'
 

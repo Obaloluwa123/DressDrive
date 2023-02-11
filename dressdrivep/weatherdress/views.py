@@ -7,6 +7,7 @@ from django.contrib.auth import login, logout, authenticate
 from urllib.request import urlopen
 import requests
 import googlemaps
+from geopy.geocoders import Nominatim
 from .forms import *
 # from geopy.geocoders import Nominatim
 from django.contrib.auth.models import User
@@ -14,13 +15,6 @@ from django.contrib.auth.models import User
 import json
 
 
-
-
-
-# SEARCH_ENDPOINT = 
-# json_response = json.loads(BASE_URL)
-
-# API_KEY = open('apikey.txt', 'r').read()
 
 
 
@@ -40,7 +34,7 @@ def index(request):
                 error = "E-mail already registered!"
                 context['error'] = error
                 context['form'] = form
-                return render(request, 'bros/registration.html', context)
+                return render(request, 'weatherdress/registration.html', context)
             except User.DoesNotExist:
 
                 username    = form.cleaned_data['username']
@@ -60,12 +54,12 @@ def index(request):
 
         
         else:
-            return render(request, 'bros/registration.html', {'form': form})
+            return render(request, 'weatherdress/registration.html', {'form': form})
 
     form = UserRegistrationForm()
     context['form'] = form
 
-    return render(request, 'bros/registration.html', context)
+    return render(request, 'weatherdress/registration.html', context)
 
 
 
@@ -96,13 +90,18 @@ def signin_page(request):
     context = {
         "form": form,
     }
-    return render(request, 'bros/signin.html', context)
+    return render(request, 'weatherdress/signin.html', context)
 
 
-def get_latitude(request, latitude: float, longitude: float):
-    
-    # geolocator = Nominatim()
-    # location = geolocator.geocode("175 5th Avenue NYC")
+def home(request):
+    API_KEY = open('apikey.txt', 'r').read()
+    ip_request = requests.get('https://get.geojs.io/v1/ip.json')
+    my_ip = ip_request.json()['ip']
+    geo_request = requests.get(f'https://get.geojs.io/v1/ip/geo/{my_ip}.json')
+    geo_data = geo_request.json()
+    latitude = geo_data["latitude"]
+    longitude = geo_data["longitude"]
+
     request_url  = "https://api.openweathermap.org/data/3.0/onecall?lat={latitude}&lon={longitude}&appid={API_KEY}"
     response = requests.get(request_url).json()
 
