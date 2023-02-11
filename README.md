@@ -24,4 +24,3 @@
 ### Optional Features
 
 - [ ] 1. User can order clothes based on their current weather
-- [ ] 3. User can select on additional buttons that provide more info about the user. Example: more textfields, a different alert box, etc.
