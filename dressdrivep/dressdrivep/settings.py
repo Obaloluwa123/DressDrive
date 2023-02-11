@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-+v(le((8mf7-=*-fp-_7*28)_vwd^ys31m1kfu)5pg4=6!yun&'
-TEMPLATE_DIR = BASE_DIR / 'templates'
+TEMPLATE_DIR = BASE_DIR / 'weatherdress' / 'templates'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
