@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="apple-touch-icon" href="https://img2.pngio.com/alphabet-b-letter-letters-red-icon-alphabet-b-png-512_512.png">
+        <meta name="apple-mobile-web-app-capable" content="yes" /> 
+        <meta name="apple-mobile-web-app-title" content="Bronekt">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'bros/css/landing.css' %}">
+        <title>Welcome!</title>
+    </head>
+<body>
+    <div class="container">
+        <h1 class="logo-header">Beingbros</h1>
+        {% if error %}
+            {{error}}
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button id="sign-up-btn" type="submit">Register</button>
+            <p class="sign-in-prompt">Already have an account?<a target="_self" href="{% url 'signin' %}"> sign in</a> instead</p>
+        </form>
+    </div>
+    <script src="{% static 'bros/js/register.js' %}"></script>
+   
+</body>
+</html>
