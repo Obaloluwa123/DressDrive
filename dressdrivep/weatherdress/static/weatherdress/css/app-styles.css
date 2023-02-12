@@ -24,39 +24,26 @@ span {
 }
 
 .left-col {
+  color: white;
   float: left;
   width: 35vw;
   height: 100vh;
-  border: 1px solid black;
+  border: 0.5px solid rgb(75, 72, 72);
+  background-image: url('/static/weatherdress/images/pexels-jeremy-bishop-2397649.jpg');
 
-  /* background-color: red; */
 }
 
 span {
   content: "\00B0";
 }
 
-.left-col>form {
-  margin-top: 30%;
-  padding: 30px;
-  align-items: center;
-}
-
 .left-col>form>input {
   padding: 10px;
   border-radius: 10px;
-
-
 }
 
 .mood {
-  margin-left: 5%;
   padding: 20px;
-}
-
-.left-col>h3 {
-  margin-left: 10%;
-  margin-top: 40%;
 }
 
 .container-activity>h1 {
@@ -64,9 +51,24 @@ span {
   margin-left: 10%;
 }
 
-.left-col>h2 {
-  margin-left: 10%;
-  margin-top: 10%;
-  padding: 5px;
+.submitForm {
+  margin-top: 20px;
+}
 
+.moodForm {
+  margin-top: 20px;
+}
+
+.greeting {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  padding: 20px;
+}
+
+.recordedTemp {
+  margin-bottom: 15px;
+}
+
+.recordedTemp, .feelTemp {
+  padding: 20px;
 }
