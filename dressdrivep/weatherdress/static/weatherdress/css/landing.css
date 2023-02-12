@@ -5,7 +5,7 @@
 }
 
 html { 
-    font-family: cursive;
+    font-family: Verdana, Geneva;
     overflow: hidden;
     position: relative;
 }
@@ -15,7 +15,7 @@ body {
     width: 100vw;
     height:  100vh;
     background-color:white ;
-    background-image: url('https://wallpaperaccess.com/full/496577.jpg');
+    background-image: url('https://images.pexels.com/photos/1424246/pexels-photo-1424246.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
 }
 .container > h1 {
     animation: flicker 1.5s infinite alternate;
@@ -44,8 +44,8 @@ body {
   }
   
 .container {
-    width: 90%;
-    height: 400px;
+    width: 95%;
+    height: 500px;
     margin: 0 auto;
     border-radius: 30px;
     padding: 2em;
@@ -76,14 +76,14 @@ input {
 }
 
 label {
-    color: black solid;
-    font-size: 0.8rem;
+    color: white;
+    font-size: 2.5rem;
 }
 .row {
     display: flex;
     height: auto;
     width: 100%;
-    margin: 5px;
+    margin: 6px;
     justify-content: space-between;
 }
 
@@ -98,8 +98,10 @@ label {
 }
 #sign-up-btn {
     border: none;
-    background-color: lightgreen;
-    font-size: 0.8em;
+    background-color: gold;
+    align-content: center;
+    margin-left: 41%;
+    font-size: 1.0em;
     padding: 5px 15px;
     color: #fff;
     border-radius: 15px;
@@ -123,6 +125,7 @@ label {
     background-color: green;
     font-size: 0.8em;
     padding: 5px 15px;
+    margin-left: 40%;
     color: #fff;
     border-radius: 15px;
     text-decoration: none;
@@ -135,7 +138,9 @@ label {
     color: #fff;
     font-size: large;
     margin-top: 1.2em;
+    margin-left: 35%;
     font-weight: 400;
+    font-size: 1.0em;
     padding-bottom: 20px;
     /* font-family: Arial, Helvetica, sans-serif !important ; */
 }

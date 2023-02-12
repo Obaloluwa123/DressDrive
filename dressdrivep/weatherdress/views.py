@@ -6,8 +6,6 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import login, logout, authenticate
 from urllib.request import urlopen
 import requests
-import googlemaps
-from geopy.geocoders import Nominatim
 from .forms import *
 from django.contrib.auth.models import User
 import numpy as np
@@ -15,6 +13,9 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.feature_extraction.text import CountVectorizer
 from django.shortcuts import render
 from .models import ActivityForm
+
+# import json
+import json
 
 
 def index(request):
@@ -67,6 +68,8 @@ def signout_page(request):
     logout(request)
     return render(request, "bros/signout.html")
 
+    return render(request, "weatherdress/signout.html")
+
 
 def signin_page(request):
     if request.method == "POST":
@@ -89,7 +92,7 @@ def signin_page(request):
 
 
 def home(request):
-    API_KEY = open("apikey.txt", "r").read()
+    API_KEY = "590694425933fdbfe10eb5695c3a51bc"
     ip_request = requests.get("https://get.geojs.io/v1/ip.json")
     my_ip = ip_request.json()["ip"]
     geo_request = requests.get(f"https://get.geojs.io/v1/ip/geo/{my_ip}.json")
@@ -97,26 +100,16 @@ def home(request):
     latitude = geo_data["latitude"]
     longitude = geo_data["longitude"]
 
-    request_url = "https://api.openweathermap.org/data/3.0/onecall?lat={latitude}&lon={longitude}&appid={API_KEY}"
+    request_url = (
+        "https://api.openweathermap.org/data/3.0/onecall?lat="
+        + latitude
+        + "&lon="
+        + longitude
+        + "&appid=590694425933fdbfe10eb5695c3a51bc"
+    )
     response = requests.get(request_url).json()
 
-
-def recommend_activity(mood):
-    # Define a list of activities and their corresponding moods
-    activities = ["outdoor sports", "dancing", "meditation", "yoga", "reading"]
-    moods = ["energetic", "happy", "relaxed", "calm", "calm"]
-
-    # Convert the list of activities and moods into a matrix representation
-    X = np.array([activities, moods])
-    y = np.array(moods)
-
-    # Train a Naive Bayes classifier on the matrix representation
-    clf = MultinomialNB()
-    clf.fit(X, y)
-
-    # Use the trained classifier to predict the recommended activity based on the user's mood
-    mood_vector = np.array([mood])
-    return clf.predict(mood_vector)
+    return render(request, "weatherdress/home.html")
 
 
 def recommend_activity_view(request):
