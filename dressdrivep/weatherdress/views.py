@@ -15,10 +15,6 @@ from django.contrib.auth.models import User
 import json
 
 
-
-
-
-
 def index(request):
     context = {}
     if request.user.is_authenticated:
@@ -71,7 +67,7 @@ def signout_page(request):
     # dictionary = dict()
     # dictionary['displayname'] = listed[0]
     logout(request)
-    return render(request, 'bros/signout.html')
+    return render(request, 'weatherdress/signout.html')
 
 def signin_page(request):
     if request.method == "POST":
@@ -94,19 +90,18 @@ def signin_page(request):
 
 
 def home(request):
-    API_KEY = open('apikey.txt', 'r').read()
+    API_KEY = "590694425933fdbfe10eb5695c3a51bc"
     ip_request = requests.get('https://get.geojs.io/v1/ip.json')
     my_ip = ip_request.json()['ip']
     geo_request = requests.get(f'https://get.geojs.io/v1/ip/geo/{my_ip}.json')
     geo_data = geo_request.json()
-    latitude = geo_data["latitude"]
+    latitude =  geo_data["latitude"]
     longitude = geo_data["longitude"]
 
-    request_url  = "https://api.openweathermap.org/data/3.0/onecall?lat={latitude}&lon={longitude}&appid={API_KEY}"
+    request_url  = "https://api.openweathermap.org/data/3.0/onecall?lat="+latitude+"&lon="+longitude+"&appid=590694425933fdbfe10eb5695c3a51bc"
     response = requests.get(request_url).json()
-
   
         
-
+    return render(request, 'weatherdress/home.html')
 
 
