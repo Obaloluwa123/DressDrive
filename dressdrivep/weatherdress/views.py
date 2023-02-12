@@ -112,6 +112,24 @@ def home(request):
     return render(request, "weatherdress/home.html")
 
 
+def recommend_activity(mood):
+    # Define a list of activities and their corresponding moods
+    activities = ["outdoor sports", "dancing", "meditation", "yoga", "reading"]
+    moods = ["energetic", "happy", "relaxed", "calm", "calm"]
+
+    # Convert the list of activities and moods into a matrix representation
+    X = np.array([activities, moods])
+    y = np.array(moods)
+
+    # Train a Naive Bayes classifier on the matrix representation
+    clf = MultinomialNB()
+    clf.fit(X, y)
+
+    # Use the trained classifier to predict the recommended activity based on the user's mood
+    mood_vector = np.array([mood])
+    return clf.predict(mood_vector)
+
+
 def recommend_activity_view(request):
     if request.method == "POST":
         mood = request.POST.get("mood")
