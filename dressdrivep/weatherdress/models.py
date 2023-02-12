@@ -1,27 +1,22 @@
 from statistics import mode
 from django.db import models
+from django import forms
+
+MOOD_CHOICES = [
+    ("happy", "Happy"),
+    ("sad", "Sad"),
+    ("excited", "Excited"),
+    ("relaxed", "Relaxed"),
+    ("energized", "Energized"),
+]
 
 
-class ActivityForm(models.Model):
-    MOOD_CHOICES = [
-        ("happy", "Happy"),
-        ("sad", "Sad"),
-        ("excited", "Excited"),
-        ("relaxed", "Relaxed"),
-        ("energized", "Energized"),
-    ]
-    mood = models.CharField(max_length=10, choices=MOOD_CHOICES)
-    temperature = models.FloatField()
+class ActivityForm(forms.Form):
+    # mood = models.CharField(max_length=10, choices=MOOD_CHOICES)
+    # temperature = models.IntegerField()
+    mood_today = forms.CharField(
+        label="How are you feeling today?", widget=forms.Select(choices=MOOD_CHOICES)
+    )
 
     def __str__(self):
         return self.mood
-
-
-class Activity(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-    mood = models.CharField(max_length=100)
-    temperature = models.FloatField()
-
-    def __str__(self):
-        return self.name

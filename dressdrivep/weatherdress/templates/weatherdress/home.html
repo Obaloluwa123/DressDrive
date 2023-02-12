@@ -1,15 +1,97 @@
 {% load static %}
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Bronekt">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
 
-    <title>Home</title>
     <link rel="stylesheet" href="{% static 'weatherdress/css/app-styles.css' %}">
 </head>
 
 <body>
     <div class="row">
-        <div class="left-col"></div>
+        <div class="left-col">
+            <h3>Hey there, {{ first_name }}</h3>
+            <h2> It is, {{ recorded }} <span>&#176;</span></h2>
+            <h2>Feels like, {{ feels_like }} <span>&#176;</span></h2>
+            <form method="post" class="mood">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Submit">
+            </form>
 
-        <div class="right-col"></div>
-    </div>
+        </div>
+
+        <div class="right-col">
+            <div class="container-activity">
+                <h1>Recommended Activities</h1>
+                <div class="row" style="padding: 20px; display:grid; margin-left: 10%; margin-top: 10%;">
+                    <div class="col-md-4">
+                        <h2>Outdoor Activities</h2>
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" src="activity1.jpg" alt="Activity 1">
+                            <div class="card-body">
+                                <h5 class="card-title">Activity 1</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the
+                                    bulk of the
+                                    card's content.</p>
+                            </div>
+                        </div>
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" src="activity2.jpg" alt="Activity 2">
+                            <div class="card-body">
+                                <h5 class="card-title">Activity 2</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the
+                                    bulk of the
+                                    card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <h2>Indoor Activities</h2>
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" src="activity3.jpg" alt="Activity 3">
+                            <div class="card-body">
+                                <h5 class="card-title">Activity 3</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the
+                                    bulk of the
+                                    card's content.</p>
+                            </div>
+                        </div>
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" src="activity4.jpg" alt="Activity 4">
+                            <div class="card-body">
+                                <h5 class="card-title">Activity 4</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the
+                                    bulk of the
+                                    card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <h2>Food and Drink</h2>
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" src="activity5.jpg" alt="Activity 5">
+                            <div class="card-body">
+                                <h5 class="card-title">Activity 5</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the
+                                    bulk of the
+                                    card's content.</p>
+                            </div>
+                        </div>
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" src="activity6.jpg" alt="Activity 6">
+                            <div class="card-body">
+                                <h5 class="card-title">Activity 6</h5>
+                                <p class="card-text">
+
+                            </div>
+                        </div>
 </body>

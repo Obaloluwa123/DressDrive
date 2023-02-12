@@ -91,7 +91,12 @@ def signin_page(request):
     return render(request, "weatherdress/signin.html", context)
 
 
+def convertFah(temp):
+    return (temp - 273.15) * (9 / 5) + 32
+
+
 def home(request):
+    BASE_URL_ACTIVITY = "https://api.geoapify.com/v2/places?categories=catering.restaurant,commercial.outdoor_and_sport,entertainment,leisure&filter=place:51a8d7ae84625f55c059bb55a150e74d4040f00101f90192b0010000000000c0020692030641756275726e&limit=50&apiKey=186e116e69a0439ebd758b7a654db788"
     API_KEY = "590694425933fdbfe10eb5695c3a51bc"
     ip_request = requests.get("https://get.geojs.io/v1/ip.json")
     my_ip = ip_request.json()["ip"]
@@ -99,7 +104,7 @@ def home(request):
     geo_data = geo_request.json()
     latitude = geo_data["latitude"]
     longitude = geo_data["longitude"]
-
+    user_firstname = request.user.first_name
     request_url = (
         "https://api.openweathermap.org/data/3.0/onecall?lat="
         + latitude
@@ -107,38 +112,52 @@ def home(request):
         + longitude
         + "&appid=590694425933fdbfe10eb5695c3a51bc"
     )
+
+    activity_response = requests.get(BASE_URL_ACTIVITY).json()
+    print("ACTIVIITY", activity_response)
     response = requests.get(request_url).json()
-
-    return render(request, "weatherdress/home.html")
-
-
-def recommend_activity(mood):
-    # Define a list of activities and their corresponding moods
-    activities = ["outdoor sports", "dancing", "meditation", "yoga", "reading"]
-    moods = ["energetic", "happy", "relaxed", "calm", "calm"]
-
-    # Convert the list of activities and moods into a matrix representation
-    X = np.array([activities, moods])
-    y = np.array(moods)
-
-    # Train a Naive Bayes classifier on the matrix representation
-    clf = MultinomialNB()
-    clf.fit(X, y)
-
-    # Use the trained classifier to predict the recommended activity based on the user's mood
-    mood_vector = np.array([mood])
-    return clf.predict(mood_vector)
-
-
-def recommend_activity_view(request):
-    if request.method == "POST":
-        mood = request.POST.get("mood")
-        activity = recommend_activity(mood)
-        return render(request, "recommend_activity.html", {"activity": activity})
-    else:
-        return render(request, "input_mood.html")
-
-
-def activity_form_view(request):
+    recorded_temp = int(convertFah(response["current"]["temp"]))
+    feels_like_temp = int(convertFah(response["current"]["feels_like"]))
     form = ActivityForm()
-    return render(request, "activity_form.html", {"form": form})
+
+    ctx = {
+        "first_name": user_firstname,
+        "recorded": recorded_temp,
+        "feels_like": feels_like_temp,
+        "form": form,
+    }
+
+    return render(request, "weatherdress/home.html", ctx)
+
+
+# def recommend_activity(mood):
+#     # Define a list of activities and their corresponding moods
+#     activities = ["outdoor sports", "dancing", "meditation", "yoga", "reading"]
+#     moods = ["energetic", "happy", "relaxed", "calm", "calm"]
+
+#     # Convert the list of activities and moods into a matrix representation
+#     X = np.array([activities, moods])
+#     y = np.array(moods)
+
+#     # Train a Naive Bayes classifier on the matrix representation
+#     clf = MultinomialNB()
+#     clf.fit(X, y)
+
+#     # Use the trained classifier to predict the recommended activity based on the user's mood
+#     mood_vector = np.array([mood])
+#     return clf.predict(mood_vector)
+
+
+# def recommend_activity_view(request):
+#     if request.method == "POST":
+#         mood = request.POST.get("mood")
+#         activity = recommend_activity(mood)
+#         return render(request, "weatherdress/home.html", {"activity": activity})
+#     else:
+#         return render(request, "weatherdress/home.html")
+
+
+# def activity_form_view(request):
+#     form = ActivityForm()
+#     print("FORM", form)
+#     return render(request, "weatherdress/home.html", {"form": form})
