@@ -6,8 +6,6 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import login, logout, authenticate
 from urllib.request import urlopen
 import requests
-import googlemaps
-from geopy.geocoders import Nominatim
 from .forms import *
 # from geopy.geocoders import Nominatim
 from django.contrib.auth.models import User
@@ -15,6 +13,13 @@ from django.contrib.auth.models import User
 import json
 
 
+
+
+
+# SEARCH_ENDPOINT = 
+# json_response = json.loads(BASE_URL)
+
+# API_KEY = open('apikey.txt', 'r').read()
 
 
 
@@ -71,7 +76,7 @@ def signout_page(request):
     # dictionary = dict()
     # dictionary['displayname'] = listed[0]
     logout(request)
-    return render(request, 'bros/signout.html')
+    return render(request, 'weatherdress/signout.html')
 
 def signin_page(request):
     if request.method == "POST":
@@ -93,15 +98,10 @@ def signin_page(request):
     return render(request, 'weatherdress/signin.html', context)
 
 
-def home(request):
-    API_KEY = open('apikey.txt', 'r').read()
-    ip_request = requests.get('https://get.geojs.io/v1/ip.json')
-    my_ip = ip_request.json()['ip']
-    geo_request = requests.get(f'https://get.geojs.io/v1/ip/geo/{my_ip}.json')
-    geo_data = geo_request.json()
-    latitude = geo_data["latitude"]
-    longitude = geo_data["longitude"]
-
+def get_latitude(request, latitude: float, longitude: float):
+    
+    # geolocator = Nominatim()
+    # location = geolocator.geocode("175 5th Avenue NYC")
     request_url  = "https://api.openweathermap.org/data/3.0/onecall?lat={latitude}&lon={longitude}&appid={API_KEY}"
     response = requests.get(request_url).json()
 

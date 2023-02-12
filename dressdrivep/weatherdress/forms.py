@@ -11,7 +11,7 @@ class UserRegistrationForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs.update({'class': 'input-field', 'autocomplete':'off', 'placeholder':'Username'})
+        self.fields['username'].widget.attrs.update({'class': 'input-field', 'autocomplete':'off', 'placeholder':'Username', 'style': 'color:orange;'})
         self.fields['first_name'].widget.attrs.update({'class': 'input-field', 'autocomplete':'on', 'placeholder':'First name'})
         self.fields['last_name'].widget.attrs.update({'class': 'input-field', 'autocomplete':'on', 'placeholder':'Last name'})
         self.fields['email'].widget.attrs.update({'class': 'input-field', 'autocomplete':'on', 'placeholder':'Email'})
