@@ -13,17 +13,6 @@ from django.contrib.auth.models import User
 import json
 
 
-
-
-
-# SEARCH_ENDPOINT = 
-# json_response = json.loads(BASE_URL)
-
-# API_KEY = open('apikey.txt', 'r').read()
-
-
-
-
 def index(request):
     context = {}
     if request.user.is_authenticated:
@@ -98,15 +87,19 @@ def signin_page(request):
     return render(request, 'weatherdress/signin.html', context)
 
 
-def get_latitude(request, latitude: float, longitude: float):
-    
-    # geolocator = Nominatim()
-    # location = geolocator.geocode("175 5th Avenue NYC")
-    request_url  = "https://api.openweathermap.org/data/3.0/onecall?lat={latitude}&lon={longitude}&appid={API_KEY}"
-    response = requests.get(request_url).json()
+def home(request):
+    API_KEY = "590694425933fdbfe10eb5695c3a51bc"
+    ip_request = requests.get('https://get.geojs.io/v1/ip.json')
+    my_ip = ip_request.json()['ip']
+    geo_request = requests.get(f'https://get.geojs.io/v1/ip/geo/{my_ip}.json')
+    geo_data = geo_request.json()
+    latitude =  geo_data["latitude"]
+    longitude = geo_data["longitude"]
 
+    request_url  = "https://api.openweathermap.org/data/3.0/onecall?lat="+latitude+"&lon="+longitude+"&appid=590694425933fdbfe10eb5695c3a51bc"
+    response = requests.get(request_url).json()
   
         
-
+    return render(request, 'weatherdress/home.html')
 
 
